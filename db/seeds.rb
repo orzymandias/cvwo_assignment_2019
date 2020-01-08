@@ -10,3 +10,5 @@ Task.create(title: "Kill the floor", status: true)
 Task.create(title: "do 1101S", status: true)
 Task.create(title: "Mop the ceiling", status: true)
 Tag.create(name: "important")
+Tag.create(name: "less important")
+
