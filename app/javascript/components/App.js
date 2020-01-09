@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Body from "./body/body";
-import {AppBar, Toolbar, Typography,makeStyles} from '@material-ui/core';
+import React, { Component, Fragment } from 'react'
+import Header from './layouts/Header'
+import Body from "./body/body"
 
 
 
@@ -14,29 +14,15 @@ class App extends Component {
 
     }
 
-    useStyles = makeStyles(theme => ({
-      root: {
-        flexGrow: 1,
-      },
-      title: {
-        flexGrow: 1,
-      },
-    }));
-
     render() {
         return (
-          <div className='classes.root' >
-            <AppBar>
-              <Toolbar>
-                <Typography variant="h6" className='classes.title'>
-                  Todo Manager
-                </Typography>                
-              </Toolbar>
-            </AppBar>
+        <Fragment>
+            <Header/>
             <Body/>
-          </div>
-        )
-    }
+
+        </Fragment>
+        );  
+  }
 }
 
 export default App

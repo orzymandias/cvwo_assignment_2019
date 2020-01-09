@@ -6,9 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Task.create(title: "Kill the floor", status: true)
-Task.create(title: "do 1101S", status: true)
-Task.create(title: "Mop the ceiling", status: true)
-Tag.create(name: "important")
-Tag.create(name: "less important")
+# @book = @author.books.build(published_at: Time.now,
+#                                 book_number: "A12345")
+ 
+# @books = @author.books.build([
+#   { published_at: Time.now, book_number: "A12346" },
+#   { published_at: Time.now, book_number: "A12347" }
 
+task00 = Task.create({title: 'Cooking with Elon', status: false})
+task00.tags.create([
+    {name: 'dumb'},
+    {name: 'useless'}
+]
+)

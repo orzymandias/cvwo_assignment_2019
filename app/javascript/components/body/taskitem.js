@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
 
+
 class Taskitem extends Component {
     getStyle =  () =>  {
         return {
@@ -22,14 +23,14 @@ class Taskitem extends Component {
     render() {
         const {id, title} = this.props.tasks
         return (
-            <div style={this.getStyle()}>
-            <p>
-                <input type='checkbox' onChange={this.props.markComplete.bind(this, id)} />  {' '}
-                {title}
-            </p>
-            
-            <button style={this.btnStyle()}>x</button>
-            </div>
+                <div style={this.getStyle()}>
+                    <p>
+                        <input type='checkbox' onChange={this.props.markComplete.bind(this, id)} />  {' '}{title}
+                    </p>
+                
+                    <button style={this.btnStyle()}>x</button>
+                </div>
+
         );
     }
 

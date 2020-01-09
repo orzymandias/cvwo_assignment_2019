@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_174333) do
+ActiveRecord::Schema.define(version: 2020_01_09_082747) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "task_tags", force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "tag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -30,6 +23,15 @@ ActiveRecord::Schema.define(version: 2020_01_06_174333) do
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasktags", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag_id"], name: "index_tasktags_on_tag_id"
+    t.index ["task_id"], name: "index_tasktags_on_task_id"
   end
 
 end
