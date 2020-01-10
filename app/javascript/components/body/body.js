@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Tasklist from './tasklist'
-import {Grid, Paper} from '@material-ui/core';
 
 class Body extends Component {
   state = {
@@ -8,7 +7,8 @@ class Body extends Component {
       {
         id: 1,
         title: 'take out trash',
-        status: false
+        status: false, 
+        tags: []
       },
       {
         id: 2,
@@ -38,16 +38,7 @@ class Body extends Component {
   } 
   render() {
     return (
-      <Grid container>
-        <Grid item sm='3' xs='3'>
-          <Paper style={{padding:20}}>
-            Sidebar
-          </Paper>
-        </Grid>
-        <Grid item sm='9' xs='9'>
-          <Tasklist tasks={this.state.task} markComplete = {this.markComplete} />
-        </Grid>
-      </Grid>
+      <Tasklist tasks={this.state.task} markComplete = {this.markComplete} />
     )
   }
 }

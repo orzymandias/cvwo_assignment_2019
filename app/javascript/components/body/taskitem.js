@@ -1,36 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-
+import { ListItem, Checkbox, ListItemIcon, ListItemText, ListItemSecondaryAction,IconButton } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 class Taskitem extends Component {
-    getStyle =  () =>  {
-        return {
-            background: '#11111', 
-            borderBottom: '1px #ccc dotted',
-            textDecoration: this.props.tasks.completed ? 'line-through' : 'none',
-            padding: '20px'
-        }
-    }
+    // getStyle =  () =>  {
+    //     return {
+    //         background: '#11111', 
+    //         borderBottom: '1px #ccc dotted',
+    //         textDecoration: this.props.tasks.completed ? 'line-through' : 'none',
+    //         padding: '20px'
+    //     }
+    // }
     
-    btnStyle = () => {
-        return {
-            background: '#ff0000'
-        }
-
-    }
-
     render() {
         const {id, title} = this.props.tasks
         return (
-                <div style={this.getStyle()}>
-                    <p>
-                        <input type='checkbox' onChange={this.props.markComplete.bind(this, id)} />  {' '}{title}
-                    </p>
-                
-                    <button style={this.btnStyle()}>x</button>
-                </div>
-
+            <div class='taskItem' dense button onClick={this.props.markComplete.bind(this, id)}>
+                <ListItem dense button onClick={this.props.markComplete.bind(this, id)}>
+                        <ListItemIcon>
+                            <Checkbox
+                                tabIndex={-1}
+                                disableRipple
+                            />
+                        </ListItemIcon>
+                        <ListItemText id={id} primary={title} />
+                        <ListItemSecondaryAction>
+                        <IconButton edge="end">
+                            < DeleteIcon/>
+                        </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+            </div>    
         );
     }
 
