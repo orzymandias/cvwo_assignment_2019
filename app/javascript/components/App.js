@@ -10,7 +10,13 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            task: [],
+            task: [
+              {
+                id: 1,
+                title: 'take out trash',
+                status: false
+              },
+            ],
             tags: []
         }
 
@@ -21,13 +27,13 @@ class App extends Component {
         <Fragment>
           <Header/>
           <Grid container>
-            <Grid item sm='3' xs='3'>
+            <Grid item sm={3} xs={12}>
               <Paper style={{padding:20}}>
                 Sidebar
               </Paper>
             </Grid>
-            <Grid item sm='9' xs='9'>
-              <Body/>
+            <Grid item sm={9} xs={12}>
+              <Body tasks={this.state.task}/>
             </Grid>
           </Grid>
           {/* footer here */}

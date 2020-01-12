@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Taskitem from './taskitem';
-import {List, ListItem, ListItemText} from '@material-ui/core';
+import {List} from '@material-ui/core';
 
 
 class Tasklist extends Component {
@@ -11,12 +11,9 @@ class Tasklist extends Component {
             <List>
                 {this.props.tasks.map(task => {
                 return(
-                    <Taskitem key={task.id} tasks={task} markComplete={this.props.markComplete}/>
-
-                        
-                );
+                    <Taskitem key={task.id} tasks={task} markComplete={this.props.markComplete} deleteTask={this.props.deleteTask}/>);
                 
-                b})}
+                })}
             </List>
         );
 
@@ -25,7 +22,7 @@ class Tasklist extends Component {
 
 // Assert proptype
 Tasklist.propTypes = {
-    task: PropTypes.array.isRequired
+    tasks: PropTypes.array.isRequired
 }
 
 export default Tasklist;

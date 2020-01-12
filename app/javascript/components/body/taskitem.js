@@ -15,19 +15,21 @@ class Taskitem extends Component {
     // }
     
     render() {
-        const {id, title} = this.props.tasks
+        const {id, title, status} = this.props.tasks
         return (
-            <div class='taskItem' dense button onClick={this.props.markComplete.bind(this, id)}>
+            <div className='taskItem'>
                 <ListItem dense button onClick={this.props.markComplete.bind(this, id)}>
                         <ListItemIcon>
                             <Checkbox
+                                edge='start'
+                                checked={status}
                                 tabIndex={-1}
                                 disableRipple
                             />
                         </ListItemIcon>
                         <ListItemText id={id} primary={title} />
                         <ListItemSecondaryAction>
-                        <IconButton edge="end">
+                        <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
                             < DeleteIcon/>
                         </IconButton>
                         </ListItemSecondaryAction>
@@ -40,11 +42,6 @@ class Taskitem extends Component {
 
 // Assert proptype
 Taskitem.propTypes = {
-    task: PropTypes.object.isRequired
+    tasks: PropTypes.object.isRequired
 }
-
-// const btnStyle = {
-//     background: '#ff0000'
-// }
-
 export default Taskitem;
