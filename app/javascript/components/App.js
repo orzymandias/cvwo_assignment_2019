@@ -4,8 +4,6 @@ import Body from "./body/body"
 import {Grid, Paper} from '@material-ui/core';
 
 
-
-
 class App extends Component {
     constructor() {
         super();
@@ -23,7 +21,8 @@ class App extends Component {
     }
 
     render() {
-        return(
+      return(
+        
         <Fragment>
           <Header/>
           <Grid container>
