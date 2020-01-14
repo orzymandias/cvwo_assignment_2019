@@ -5,29 +5,21 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 class Taskitem extends Component {
-    // getStyle =  () =>  {
-    //     return {
-    //         background: '#11111', 
-    //         borderBottom: '1px #ccc dotted',
-    //         textDecoration: this.props.tasks.completed ? 'line-through' : 'none',
-    //         padding: '20px'
-    //     }
-    // }
     
     render() {
-        const {id, title, status} = this.props.tasks
+        const {id, attributes} = this.props.tasks
         return (
             <div className='taskItem'>
                 <ListItem dense button onClick={this.props.markComplete.bind(this, id)}>
                         <ListItemIcon>
                             <Checkbox
                                 edge='start'
-                                checked={status}
+                                checked={attributes.status}
                                 tabIndex={-1}
                                 disableRipple
                             />
                         </ListItemIcon>
-                        <ListItemText id={id} primary={title} />
+                        <ListItemText id={id} primary={attributes.title} />
                         <ListItemSecondaryAction>
                         <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
                             < DeleteIcon/>
