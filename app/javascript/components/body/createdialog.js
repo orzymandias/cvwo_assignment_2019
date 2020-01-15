@@ -23,7 +23,7 @@ class CreateDialog extends Component {
       title: ""
     },
     tag: {
-      name: []
+      tagObj: []
     }
   };
 
@@ -44,7 +44,8 @@ class CreateDialog extends Component {
     } else {
       this.setState({
         tag: {
-          name: e.target.value
+
+          tagObj: e.target.value
         }
       });
     }
@@ -53,7 +54,7 @@ class CreateDialog extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createTask(this.state.task.title);
+    this.props.createTask(this.state.task.title, this.state.tag.tagObj);
     this.setState({
       task: {
         ...this.state.task,
@@ -64,7 +65,8 @@ class CreateDialog extends Component {
   };
 
   render() {
-    const tags = ["tag1", "tag2", "tafadfadsfadsfadsfafg3", ";lkasdjf;akldsjf;alkjdsf;lja",';lsakdjf;ldsakjf'];
+    // const tags = this.props.tags.map( tag => tag.attributes.name);
+    const tags = this.props.tags
     return (
       <div id="createButton">
         <Button
@@ -96,21 +98,21 @@ class CreateDialog extends Component {
                   labelId="demo-mutiple-chip-label"
                   id="name"
                   multiple
-                  value={this.state.tag.name}
+                  value={this.state.tag.tagObj}
                   onChange={this.handleChange('tag')}
                   input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
                     <div>
                       {selected.map(value => (
-                        <Chip key={value} label={value} />
+                        <Chip key={value.id} label={value.attributes.name} />
                       ))}
                     </div>
                   )}
                 >
                   {tags.map(tag => (
-                    <MenuItem key={tag} value={tag}>
-                      <Checkbox checked={this.state.tag.name.indexOf(tag) > -1}/>
-                      <ListItemText primary={tag} />
+                    <MenuItem key={tag.id} value={tag}>
+                      <Checkbox checked={this.state.tag.tagObj.indexOf(tag) > -1}/>
+                      <ListItemText primary={tag.attributes.name} />
                     </MenuItem>
                   ))}
                 </Select>

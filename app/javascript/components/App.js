@@ -4,28 +4,35 @@ import Body from "./body/body"
 import { Grid, Paper } from '@material-ui/core';
 import axios from 'axios'
 
-
 class App extends Component {
   constructor() {
     super();
     this.getTasks = this.getTasks.bind(this)
+    this.getTags = this.getTags.bind(this)
     this.state = {
       task: [],
-      tags: []
+      tag: []
     }
 
   }
 
   componentDidMount() {
     this.getTasks()
+    this.getTags()
   }
 
   getTasks() {
-    console.log('getting task')
     axios.get('/api/tasks').then(res => {
-      this.setState({task: res.data.data })
+      this.setState({task: res.data.data.reverse() })
     })
   }
+
+  getTags() {
+    axios.get('/api/tags').then(res => {
+      this.setState({tag: res.data.data })
+    })
+  }
+
 
   render() {
 
@@ -40,7 +47,11 @@ class App extends Component {
               </Paper>
           </Grid>
           <Grid item sm={9} xs={12}>
-            <Body tasks={this.state.task} getTasks={this.getTasks} />
+            <Body 
+              tasks={this.state.task}
+              tags={this.state.tag} 
+              getTasks={this.getTasks} 
+              getTags={this.getTags}/>
           </Grid>
         </Grid>
         {/* footer here */}

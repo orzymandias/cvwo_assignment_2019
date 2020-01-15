@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { ListItem, Checkbox, ListItemIcon, ListItemText, ListItemSecondaryAction,IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-
+import { Delete, Edit } from '@material-ui/icons';
 
 class Taskitem extends Component {
     
@@ -10,7 +9,7 @@ class Taskitem extends Component {
         const {id, attributes} = this.props.tasks
         return (
             <div className='taskItem'>
-                <ListItem dense button onClick={this.props.markComplete.bind(this, id)}>
+                <ListItem dense button onClick={this.props.markComplete.bind(this, id, attributes.status)}>
                         <ListItemIcon>
                             <Checkbox
                                 edge='start'
@@ -22,7 +21,11 @@ class Taskitem extends Component {
                         <ListItemText id={id} primary={attributes.title} />
                         <ListItemSecondaryAction>
                         <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
-                            < DeleteIcon/>
+                            < Edit/>
+                        </IconButton>
+
+                        <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
+                            < Delete/>
                         </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
