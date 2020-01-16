@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import Tasklist from './tasklist'
 import CreateDialog from './createdialog'
 import axios from 'axios'
+import { Paper } from '@material-ui/core';
 
 class Body extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.createTask = this.createTask.bind(this);
-    this.state = {
-    }
-
   }
-   
+  
+  
+
   markComplete = (id, status) => {
-    console.log(id)
     const myData = {
       type: 'tasks',
       id,
@@ -48,7 +47,6 @@ class Body extends Component {
   }
 
   createTask = (title, tagObjArr) => {
-    console.log(tagObjArr)
     const taskData = {
       type: 'tasks',
       attributes: {
@@ -89,7 +87,6 @@ class Body extends Component {
         body: JSON.stringify({ data: taskData })
       });
       if (res.status === 201) {
-        console.log('task createdd')
         const content = await res.json()
         const taskID = content.data.id
         assocTag(taskID)
@@ -101,22 +98,48 @@ class Body extends Component {
   
   
   getStyles = () => ({
+    root: {
+      padding: 20
+    },
     createRow: {
+      width: '100%',
       padding: 20,
     },
+    bodyTitle: {
+      padding: 10,
+      color: '#111',
+      fontFamily: ['Georgia', 'Times New Roman', 'serif'],
+      fontSize: '5em',
+      fontWeight: 'normal',
+      width: 'auto',
+      lineHeight: 1,
+      textAlign: 'left' 
+    },
+    createDialog: {
+      top: '50%'
+    }
   });
 
   render() {
     const classes = this.getStyles()
     return (
-      <div id='body' style={classes.root}>
+      <Paper>
+        <div id='body' style={classes.root}>
+          <div id='bodyTitle' style={classes.bodyTitle}>
+              Tasks
+          </div>
         <div id='createRow' style={classes.createRow} >
-          <CreateDialog createTask={this.createTask} tags={this.props.tags} getTags={this.props.getTags}/>
+          <CreateDialog style={classes.createDialog} createTask={this.createTask} tags={this.props.tags} getTags={this.props.getTags}/>
         </div>
         <div className={classes.taskList}>
-          <Tasklist tasks={this.props.tasks} markComplete = {this.markComplete} deleteTask={this.deleteTask}/>
+          <Tasklist tasks={this.props.tasks}
+          markComplete={this.markComplete} 
+          deleteTask={this.deleteTask}/>
         </div>
       </div>
+
+      </Paper>
+
     )
   }
 }

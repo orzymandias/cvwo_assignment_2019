@@ -52,20 +52,23 @@ class CreateDialog extends Component {
     
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.createTask(this.state.task.title, this.state.tag.tagObj);
     this.setState({
       task: {
         ...this.state.task,
         title: ""
+      },
+      tag:{
+        ...this.state.tag,
+        tagObj: []
       }
     });
     this.handleToggle();
   };
 
   render() {
-    // const tags = this.props.tags.map( tag => tag.attributes.name);
     const tags = this.props.tags
     return (
       <div id="createButton">

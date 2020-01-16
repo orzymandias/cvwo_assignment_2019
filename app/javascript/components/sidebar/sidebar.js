@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Paper, TextField, IconButton, InputAdornment} from '@material-ui/core'
+import { Paper, TextField, IconButton, InputAdornment, Button} from '@material-ui/core'
 import axios from 'axios'
 import Taglist from './taglist';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -109,6 +109,7 @@ class Sidebar extends Component {
             <Taglist 
               tags={this.props.tags}
               getTagTask={this.props.getTagTask}
+              getTasks={this.props.getTasks}
               deleteTag={this.deleteTag}
             />
           </div>
