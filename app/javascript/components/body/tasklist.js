@@ -13,8 +13,11 @@ class Tasklist extends Component {
                     const {attributes} = task
                         if (!attributes.status) {
                             return (<Taskitem 
+                                updateTask={this.props.updateTask}
+                                tags={this.props.tags}
                                 key={task.id} tasks={task} 
                                 markComplete={this.props.markComplete} 
+                                tasktags={this.props.tasktag}
                                 deleteTask={this.props.deleteTask} />);
                         }
                 })}
@@ -22,8 +25,11 @@ class Tasklist extends Component {
                     const {attributes} = task
                         if (attributes.status) {
                             return (<Taskitem 
+                                updateTask={this.props.updateTask}
+                                tags={this.props.tags}
                                 key={task.id} 
                                 tasks={task} 
+                                tasktags={this.props.tasktag}
                                 markComplete={this.props.markComplete} 
                                 deleteTask={this.props.deleteTask} />);
                         }

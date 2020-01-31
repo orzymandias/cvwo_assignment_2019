@@ -41,7 +41,7 @@ class App extends Component {
         this.setState({task: res.data.data.reverse()})
         }
     })
-}
+  }
   
 
 

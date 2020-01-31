@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Button,
   TextField,
@@ -71,8 +71,8 @@ class CreateDialog extends Component {
   render() {
     const tags = this.props.tags
     return (
-      <div id="createButton">
-        <Button
+    <Fragment>
+      <Button
           variant="contained"
           color="primary"
           endIcon={<CreateIcon />}
@@ -124,18 +124,14 @@ class CreateDialog extends Component {
           </DialogContent>
           <DialogActions>
             <Button
-              // onClick={() => {
-              //   this.handleToggle();
-              //   // this.handleSubmit();
-              // }}
               onClick={this.handleSubmit}
             >
               Create
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
-    );
+      </Fragment>    
+      );
   }
 }
 

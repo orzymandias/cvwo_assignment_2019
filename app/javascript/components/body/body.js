@@ -5,12 +5,13 @@ import axios from 'axios'
 import { Paper } from '@material-ui/core';
 
 class Body extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.createTask = this.createTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
   
-  
+  csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
   markComplete = (id, status) => {
     const myData = {
@@ -20,13 +21,12 @@ class Body extends Component {
         status: !status
       }
     }
-    const csrfToken = document.querySelector("meta[name=csrf-token]").content;
     const completeTask = async () => {
       const res = await fetch(`/api/tasks/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/vnd.api+json",
-          "X-CSRF-Token": csrfToken
+          "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({ data: myData })
       });
@@ -60,14 +60,13 @@ class Body extends Component {
         id: tag.id
       }
     })
-    const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
     const assocTag = async (id) => {
       const tagRes = await fetch(`/api/tasks/${id}/relationships/tags`, {
         method: "POST",
         headers: {
           "Content-Type": "application/vnd.api+json",
-          "X-CSRF-Token": csrfToken
+          "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({ data: tagData })
       });
@@ -82,7 +81,7 @@ class Body extends Component {
         method: "POST",
         headers: {
           "Content-Type": "application/vnd.api+json",
-          "X-CSRF-Token": csrfToken
+          "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({ data: taskData })
       });
@@ -94,6 +93,57 @@ class Body extends Component {
       }
     };
     postTask();
+  }
+
+  updateTask = (id, title, status, tasktags) => {
+    const taskData = {
+      type: 'tasks',
+      id, 
+      attributes: {
+        title,
+        status: status
+      },
+    }
+    const tagData = tasktags.map(tag => {
+      return {
+        type: 'tags',
+        id: tag.id
+      }
+    })
+    const patchTag = async (id) => {
+      const tagRes = await fetch(`/api/tasks/${id}/relationships/tags`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({ data: tagData })
+      });
+      if (tagRes.status === 201) {
+        this.props.getTasks()
+      } else {
+        const content = await tagRes.json()
+      }
+    }
+    const patchTask = async () => {
+      const res = await fetch(`/api/tasks/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({ data: taskData })
+      });
+      if (res.status === 200) {
+        console.log('patch task success')
+        patchTag(id);
+        this.props.getTasks()
+      } else {
+        console.log('patch task failed')
+        console.log(res.status)
+      }
+    };
+    patchTask();
   }
   
   
@@ -129,10 +179,13 @@ class Body extends Component {
               Tasks
           </div>
         <div id='createRow' style={classes.createRow} >
-          <CreateDialog style={classes.createDialog} createTask={this.createTask} tags={this.props.tags} getTags={this.props.getTags}/>
+          <CreateDialog style={classes.createDialog} createTask={this.createTask} tags={this.props.tags}/>
         </div>
         <div className={classes.taskList}>
-          <Tasklist tasks={this.props.tasks}
+          <Tasklist
+          updateTask={this.updateTask}
+          tasks={this.props.tasks}
+          tags={this.props.tags}
           markComplete={this.markComplete} 
           deleteTask={this.deleteTask}/>
         </div>

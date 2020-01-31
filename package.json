@@ -13,6 +13,7 @@
     "axios": "^0.19.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "i": "^0.3.6",
+    "jsonpatch": "^3.0.1",
     "npm": "^6.13.6",
     "or": "^0.2.0",
     "prop-types": "^15.7.2",
