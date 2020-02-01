@@ -64,10 +64,8 @@ class Taskitem extends Component {
         const {id, attributes} = this.props.tasks
         let editDialog;
         if (!this.state.dialogState) {
-            // console.log('not opened')
             editDialog = null;
         } else {
-            // console.log('openning dialog')
             editDialog = <GeneralDialog 
                 id={id}
                 tasktitle={this.state.tasktitle}

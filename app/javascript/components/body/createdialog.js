@@ -34,25 +34,22 @@ class CreateDialog extends Component {
   };
 
   handleChange = name => e => {
-    if (name === 'task') {
+    if (name === "task") {
       this.setState({
         task: {
           [e.target.id]: e.target.value
         }
       });
-      
     } else {
       this.setState({
         tag: {
-
           tagObj: e.target.value
         }
       });
     }
-    
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.createTask(this.state.task.title, this.state.tag.tagObj);
     this.setState({
@@ -60,7 +57,7 @@ class CreateDialog extends Component {
         ...this.state.task,
         title: ""
       },
-      tag:{
+      tag: {
         ...this.state.tag,
         tagObj: []
       }
@@ -69,10 +66,10 @@ class CreateDialog extends Component {
   };
 
   render() {
-    const tags = this.props.tags
+    const tags = this.props.tags;
     return (
-    <Fragment>
-      <Button
+      <Fragment>
+        <Button
           variant="contained"
           color="primary"
           endIcon={<CreateIcon />}
@@ -92,9 +89,8 @@ class CreateDialog extends Component {
                 id="title"
                 value={this.state.task.title}
                 onChange={this.handleChange("task")}
-                
               />
-              <br/>
+              <br />
               <FormControl>
                 <InputLabel>Tags</InputLabel>
                 <Select
@@ -102,7 +98,7 @@ class CreateDialog extends Component {
                   id="name"
                   multiple
                   value={this.state.tag.tagObj}
-                  onChange={this.handleChange('tag')}
+                  onChange={this.handleChange("tag")}
                   input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
                     <div>
@@ -114,7 +110,9 @@ class CreateDialog extends Component {
                 >
                   {tags.map(tag => (
                     <MenuItem key={tag.id} value={tag}>
-                      <Checkbox checked={this.state.tag.tagObj.indexOf(tag) > -1}/>
+                      <Checkbox
+                        checked={this.state.tag.tagObj.indexOf(tag) > -1}
+                      />
                       <ListItemText primary={tag.attributes.name} />
                     </MenuItem>
                   ))}
@@ -123,15 +121,11 @@ class CreateDialog extends Component {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={this.handleSubmit}
-            >
-              Create
-            </Button>
+            <Button onClick={this.handleSubmit}>Create</Button>
           </DialogActions>
         </Dialog>
-      </Fragment>    
-      );
+      </Fragment>
+    );
   }
 }
 

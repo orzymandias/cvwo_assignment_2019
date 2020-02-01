@@ -19,42 +19,48 @@ class GeneralDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        tasktag: []
-    }
+      tasktag: []
+    };
   }
-
 
   handleToggle = () => {
     this.props.toggleDialog();
   };
 
   handleDialogChange = name => e => {
-    if (name === 'task') {
-      this.props.updateTaskTitleState(e.target.value);            
+    if (name === "task") {
+      this.props.updateTaskTitleState(e.target.value);
     } else {
-      let value = e.target.value
-      const len = value.length
-      let existing = value.slice(0, len - 1)
-      const latest = value.slice(len - 1)
-      existing = existing.filter((x) => x.id !== latest[0]['id'])
-      existing.length === len - 1 ? existing = existing.concat(latest) : existing
-      console.log(existing)
-      this.setState({
-        tasktag: existing
-     }, () => console.log(this.state.tasktag));
-    }
-  }
-
-  handleSubmit = flag => e => {
-    if (flag === 'edit') {
-      e.preventDefault();
-      this.props.updateTask(this.props.id, this.props.tasktitle, this.props.status, this.state.tasktag)
-      this.handleToggle();
-    } else {
-      console.log('create task')
+      let value = e.target.value;
+      const len = value.length;
+      let existing = value.slice(0, len - 1);
+      const latest = value.slice(len - 1);
+      existing = existing.filter(x => x.id !== latest[0]["id"]);
+      existing.length === len - 1
+        ? (existing = existing.concat(latest))
+        : existing;
+      this.setState(
+        {
+          tasktag: existing
+        },
+        () => console.log(this.state.tasktag)
+      );
     }
   };
 
+  handleSubmit = flag => e => {
+    if (flag === "edit") {
+      e.preventDefault();
+      this.props.updateTask(
+        this.props.id,
+        this.props.tasktitle,
+        this.props.status,
+        this.state.tasktag
+      );
+      this.handleToggle();
+    } else {
+    }
+  };
 
   static getDerivedStateFromProps(props, state) {
     if (state.tasktag.length === 0 && props.dialogState) {
@@ -66,30 +72,29 @@ class GeneralDialog extends Component {
   }
 
   render() {
-    const tags = this.props.tags
+    const tags = this.props.tags;
     return (
-    <Fragment>
+      <Fragment>
         <Dialog open={this.props.dialogState} onClose={this.handleToggle}>
           <DialogContent>
             <form onSubmit={this.handleSubmit(this.props.action)}>
               <TextField
                 autoFocus
                 margin="dense"
-                variant='outlined'
+                variant="outlined"
                 label={`${this.props.action.toUpperCase()} TASK`} // generalize
                 id="title"
                 value={this.props.tasktitle}
                 onChange={this.handleDialogChange("task")}
-                
               />
-              <br/>
+              <br />
               <FormControl>
                 <InputLabel>Tags</InputLabel>
                 <Select
                   id="name"
                   multiple
-                  value={this.state.tasktag}  // generalise
-                  onChange={this.handleDialogChange('tag')}
+                  value={this.state.tasktag} // generalise
+                  onChange={this.handleDialogChange("tag")}
                   input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
                     <div>
@@ -102,7 +107,11 @@ class GeneralDialog extends Component {
                   {tags.map(tag => (
                     <MenuItem key={tag.id} value={tag}>
                       <Checkbox
-                      checked={this.state.tasktag.findIndex(i => i.id === tag.id) > -1} />
+                        checked={
+                          this.state.tasktag.findIndex(i => i.id === tag.id) >
+                          -1
+                        }
+                      />
                       <ListItemText primary={tag.attributes.name} />
                     </MenuItem>
                   ))}
@@ -111,15 +120,13 @@ class GeneralDialog extends Component {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={this.handleSubmit(this.props.action)}
-            >
-              {this.props.action} 
-            </Button> 
+            <Button onClick={this.handleSubmit(this.props.action)}>
+              {this.props.action}
+            </Button>
           </DialogActions>
         </Dialog>
-      </Fragment>    
-      );
+      </Fragment>
+    );
   }
 }
 
