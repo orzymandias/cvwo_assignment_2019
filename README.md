@@ -1,7 +1,5 @@
-# Computing for Voluntary Welfare Organisations (CVWO) AY2019/20 Riding on Rails Assignment 
+# Computing for Voluntary Welfare Organisations (CVWO) Built with React, Ruby on Rails. 
 
-Name: Gan Wan Cheng Isaac
-
-Matriculation Number: A0204718H
+- Built with React & Rails
 
 Deployed here: http://taskmanager2020.herokuapp.com/
