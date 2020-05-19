@@ -5,3 +5,10 @@
 - Built with React & Rails
 
 Deployed here: http://taskmanager2020.herokuapp.com/
+
+## Getting Started
+1. Install NodeJS
+2. Navigate to repository and run `npm install` to install dependencies.
+3. `foreman start -f Procfile.dev` : start server at local
+
+
