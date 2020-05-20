@@ -1,7 +1,14 @@
-# Computing for Voluntary Welfare Organisations (CVWO) AY2019/20 Riding on Rails Assignment 
+# Computing for Voluntary Welfare Organisations (CVWO) Built with React, Ruby on Rails. 
 
-Name: Gan Wan Cheng Isaac
+[![Coverage Status](https://coveralls.io/repos/github/orzymandias/taskManager/badge.svg?branch=master)](https://coveralls.io/github/orzymandias/taskManager?branch=master)
 
-Matriculation Number: A0204718H
+- Built with React & Rails
 
 Deployed here: http://taskmanager2020.herokuapp.com/
+
+## Getting Started
+1. Install NodeJS
+2. Navigate to repository and run `npm install` to install dependencies.
+3. `foreman start -f Procfile.dev` : start server at local
+
+
