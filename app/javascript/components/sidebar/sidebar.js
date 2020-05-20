@@ -86,11 +86,10 @@ class Sidebar extends Component {
   render() {
     const classes = this.getStyles();
     return (
-      <Paper>
         <div id="sideBar" style={classes.root}>
-          <div id="sideBarTitle" style={classes.sideBarTitle}>
+          {/* <div id="title" style={classes.sideBarTitle}>
             Tags
-          </div>
+          </div> */}
           <div id="createRow" style={classes.createRow}>
             <form style={classes.formInput}>
               <TextField
@@ -121,7 +120,6 @@ class Sidebar extends Component {
             />
           </div>
         </div>
-      </Paper>
     );
   }
 }

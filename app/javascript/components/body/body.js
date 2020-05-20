@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Tasklist from "./tasklist";
 import CreateDialog from "./createdialog";
 import axios from "axios";
-import { Paper } from "@material-ui/core";
 
 class Body extends Component {
   constructor(props) {
@@ -143,23 +142,11 @@ class Body extends Component {
   };
 
   getStyles = () => ({
-    root: {
-      padding: 20
-    },
+
     createRow: {
-      width: "100%",
-      padding: 20
+      padding: 10
     },
-    bodyTitle: {
-      padding: 10,
-      color: "#111",
-      fontFamily: ["Georgia", "Times New Roman", "serif"],
-      fontSize: "5em",
-      fontWeight: "normal",
-      width: "auto",
-      lineHeight: 1,
-      textAlign: "left"
-    },
+
     createDialog: {
       top: "50%"
     }
@@ -168,29 +155,28 @@ class Body extends Component {
   render() {
     const classes = this.getStyles();
     return (
-      <Paper>
-        <div id="body" style={classes.root}>
-          <div id="bodyTitle" style={classes.bodyTitle}>
-            Tasks
-          </div>
-          <div id="createRow" style={classes.createRow}>
-            <CreateDialog
-              style={classes.createDialog}
-              createTask={this.createTask}
-              tags={this.props.tags}
-            />
-          </div>
-          <div className={classes.taskList}>
-            <Tasklist
-              updateTask={this.updateTask}
-              tasks={this.props.tasks}
-              tags={this.props.tags}
-              markComplete={this.markComplete}
-              deleteTask={this.deleteTask}
-            />
-          </div>
+      <>
+        {/* <div className="title" style={classes.bodyTitle}>
+          Tasks
+          </div> */}
+        <div id="createRow" style={classes.createRow}>
+          <CreateDialog
+            style={classes.createDialog}
+            createTask={this.createTask}
+            tags={this.props.tags}
+          />
         </div>
-      </Paper>
+        <div className={classes.taskList}>
+          <Tasklist
+            updateTask={this.updateTask}
+            tasks={this.props.tasks}
+            tags={this.props.tags}
+            markComplete={this.markComplete}
+            deleteTask={this.deleteTask}
+          />
+        </div>
+      </>
+
     );
   }
 }

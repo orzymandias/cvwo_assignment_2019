@@ -3,8 +3,41 @@ import Header from "./layouts/Header";
 import Body from "./body/body";
 import Sidebar from "./sidebar/sidebar";
 import { Grid } from "@material-ui/core";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import axios from "axios";
+import Image from '../../../public/img/background-unsplash.jpg'
+import { dark } from "@material-ui/core/styles/createPalette";
 
+const theme = createMuiTheme({
+      typography: {
+        fontFamily: 'Helvetica'
+      },
+      palette: {
+        primary: {
+          main: fade('#f5f5f5', 0.3)
+        },
+        seconday: {
+          main: 'eeeeee'
+        },
+        background: {
+          paper: fade('#f5f5f5', 0.3)
+        },
+        text: {
+          secondary: "rgba(255, 255, 255, 1)",
+        }
+      },
+    });
+
+    const styles = {
+      appContainer: {
+        backgroundImage: `url(${Image})`,
+        backgroundSize: 'cover',
+        height: "100vh"
+      }
+    }
+    
 class App extends Component {
   constructor() {
     super();
@@ -39,36 +72,36 @@ class App extends Component {
       if (res.status === 200) {
         this.setState({ task: res.data.data.reverse() });
       }
-    });
+    }).catch(err => alert(err));
   };
 
+
   render() {
-    return (
-      <Fragment>
-        <Header />
-        <Grid container>
-          <Grid item sm={3} xs={12}>
-            <div id="sidebar" style={{ padding: 20 }}>
+      return (< div id='app-container' style = { styles.appContainer } >
+        <ThemeProvider theme={theme} >
+          <CssBaseline />
+          <Header />
+          <Grid container >
+            <Grid item sm={3} xs={12}>
               <Sidebar
                 tags={this.state.tag}
                 getTags={this.getTags}
                 getTagTask={this.getTagTask}
                 getTasks={this.getTasks}
               />
-            </div>
+            </Grid>
+            <Grid item sm={9} xs={12}>
+              <Body
+                tasks={this.state.task}
+                tags={this.state.tag}
+                getTasks={this.getTasks}
+                getTags={this.getTags}
+              />
+            </Grid>
           </Grid>
-          <Grid item sm={9} xs={12}>
-            <Body
-              tasks={this.state.task}
-              tags={this.state.tag}
-              getTasks={this.getTasks}
-              getTags={this.getTags}
-            />
-          </Grid>
-        </Grid>
-        {/* footer here */}
-      </Fragment>
-    );
+        </ThemeProvider>
+        </div >
+      );
   }
 }
 

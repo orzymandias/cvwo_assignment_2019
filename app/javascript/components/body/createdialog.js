@@ -84,14 +84,15 @@ class CreateDialog extends Component {
               <TextField
                 autoFocus
                 margin="dense"
-                variant="outlined"
                 label="Create Task"
                 id="title"
                 value={this.state.task.title}
                 onChange={this.handleChange("task")}
               />
               <br />
-              <FormControl>
+              <FormControl
+                style={{width: "100%"}}
+              >
                 <InputLabel>Tags</InputLabel>
                 <Select
                   labelId="demo-mutiple-chip-label"
@@ -109,8 +110,10 @@ class CreateDialog extends Component {
                   )}
                 >
                   {tags.map(tag => (
-                    <MenuItem key={tag.id} value={tag}>
+                    <MenuItem key={tag.id} value={tag} style={{ background: "white" }}>
                       <Checkbox
+                        style={{color: 'black','&$checked': {
+                        color: 'pink'}}}
                         checked={this.state.tag.tagObj.indexOf(tag) > -1}
                       />
                       <ListItemText primary={tag.attributes.name} />

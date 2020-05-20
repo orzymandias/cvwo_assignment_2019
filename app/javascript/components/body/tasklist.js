@@ -45,5 +45,3 @@ class Tasklist extends Component {
 }
 
 export default Tasklist;
-
-a;

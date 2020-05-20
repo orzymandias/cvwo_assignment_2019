@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import TaskTags from './tasktagsmenu'
-import { ListItem, Checkbox, ListItemIcon, ListItemText, ListItemSecondaryAction,IconButton, Menu, Dialog} from '@material-ui/core';
+import { Paper, ListItem, Checkbox, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton, Menu, Dialog, Box } from '@material-ui/core';
 import { Delete, Edit, LocalOffer } from '@material-ui/icons';
 import axios from 'axios'
 import GeneralDialog from './dialog'
@@ -16,13 +16,14 @@ class Taskitem extends Component {
             tasktitle: this.props.tasks.attributes.title,
             tasktag: [],
         }
-      }
-    
-    
+    }
+
+
     handleOpen = (e) => {
         this.setState({
-          anchorEl: e.currentTarget,
-          open: !this.state.open});
+            anchorEl: e.currentTarget,
+            open: !this.state.open
+        });
     };
 
     handleClose = () => {
@@ -33,13 +34,13 @@ class Taskitem extends Component {
         });
     };
 
-    getTaskTags = (id) =>  {
+    getTaskTags = (id) => {
         axios.get(`/api/tasks/${id}/tags`)
-        .then(res => {
-        if (res.status === 200) {
-            this.setState({tasktag: res.data.data})
-            }
-        })
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({ tasktag: res.data.data })
+                }
+            })
     }
 
 
@@ -49,42 +50,44 @@ class Taskitem extends Component {
             tasktitle
         }, () => console.log(this.state.tasktitle));  // adding callback so state will be updated immediately
     }
-    
+
 
     toggleDialog = () => {
         this.setState({
             dialogState: !this.state.dialogState
         })
     }
-    
-   
+
+
 
 
     render() {
-        const {id, attributes} = this.props.tasks
+        const { id, attributes } = this.props.tasks
         let editDialog;
         if (!this.state.dialogState) {
             editDialog = null;
         } else {
-            editDialog = <GeneralDialog 
+            editDialog = <GeneralDialog
                 id={id}
                 tasktitle={this.state.tasktitle}
                 status={status}
                 updateTaskTitleState={this.updateTaskTitleState}
                 updateTask={this.props.updateTask}
-                dialogState={this.state.dialogState} 
-                toggleDialog={this.toggleDialog} 
+                dialogState={this.state.dialogState}
+                toggleDialog={this.toggleDialog}
                 tags={this.props.tags}
                 tasktag={this.state.tasktag}
-                action={'edit'}/>
-                
+                action={'edit'} />
+
         }
 
         return (
-            <div className='taskItem'>
-                <ListItem dense button onClick={this.props.markComplete.bind(this, id, attributes.status)}>
+            <Box m={1}>
+                <Paper>
+                    <ListItem dense button onClick={this.props.markComplete.bind(this, id, attributes.status)}>
                         <ListItemIcon>
                             <Checkbox
+                                color="secondary"
                                 edge='start'
                                 checked={attributes.status}
                                 tabIndex={-1}
@@ -93,33 +96,34 @@ class Taskitem extends Component {
                         </ListItemIcon>
                         <ListItemText id={id} primary={attributes.title} />
                         <ListItemSecondaryAction>
-                        <IconButton edge="end" 
-                        onClick={(e) => {this.handleOpen(e); this.getTaskTags(id)}}>
-                            < LocalOffer/>
-                        </IconButton>
-                        <Menu
-                            open={this.state.open}
-                            onClose={this.handleClose}
-                            anchorEl={this.state.anchorEl}
-                            keepMounted
-                        >
-                            <TaskTags
-                            tasktags={this.state.tasktag}
-                            handleClose={this.handleClose}
-                            />
-                        </Menu>
+                            <IconButton edge="end"
+                                onClick={(e) => { this.handleOpen(e); this.getTaskTags(id) }}>
+                                < LocalOffer />
+                            </IconButton>
+                            <Menu
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                                anchorEl={this.state.anchorEl}
+                                keepMounted
+                            >
+                                <TaskTags
+                                    tasktags={this.state.tasktag}
+                                    handleClose={this.handleClose}
+                                />
+                            </Menu>
 
-                        <IconButton edge="end" onClick={e => {this.toggleDialog(e); this.getTaskTags(id)}}>
-                            < Edit/>
-                        </IconButton>
-                        {editDialog}
+                            <IconButton edge="end" onClick={e => { this.toggleDialog(e); this.getTaskTags(id) }}>
+                                < Edit />
+                            </IconButton>
+                            {editDialog}
 
-                        <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
-                            < Delete/>
-                        </IconButton>
+                            <IconButton edge="end" onClick={this.props.deleteTask.bind(this, id)}>
+                                < Delete />
+                            </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
-            </div>    
+                </Paper>
+            </Box>
         );
     }
 
